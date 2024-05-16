@@ -23,4 +23,4 @@ jobs:
               with:
                 context: .
                 push: true
-                tags: ${{ secrets.DOCKERUSER }}/my-node-app:${{ github.sha }}
+                tags: ${{ secrets.DOCKERUSER }}/logherald:${{ github.sha }}
