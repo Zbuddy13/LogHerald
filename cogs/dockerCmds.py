@@ -16,7 +16,7 @@ class Docker(commands.Cog):
     
     async def names(self, interaction: Interaction):
         # Grab the default client
-        client = docker.from_env()
+        client = docker.DockerClient(base_url='unix://var/run/docker.sock')
         ctnrNames = client.containers.list()
         for n in ctnrNames:
             await interaction.send(n.name)
