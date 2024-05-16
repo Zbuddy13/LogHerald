@@ -26,6 +26,7 @@ class Docker(commands.Cog):
 
     @nextcord.slash_command(name="logs",
                             description="View the logs for a container")
+    
     async def logs(self, interaction: Interaction, containerName: str = ' '):
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
         container = client.containers.get(str)
