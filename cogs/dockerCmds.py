@@ -24,12 +24,12 @@ class Docker(commands.Cog):
             
         await interaction.send(allContainers)
 
-    @nextcord.slash_command(name="containerlog",
+    @nextcord.slash_command(name="logs",
                             description="View the logs for a container")
     
-    async def containerlog(self, interaction: Interaction, containerName: str = ' '):
+    async def logs(self, interaction: Interaction, containername: str = ' '):
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-        container = client.containers.get(str)
+        container = client.containers.get(containername)
         await interaction.send(container.logs(timestramps=True))
                 
 def setup(client):
