@@ -19,7 +19,9 @@ class Docker(commands.Cog):
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
         ctnrNames = client.containers.list()
         for n in ctnrNames:
-            await interaction.send(n.name)
+            allContainers = allContainers + n
+            
+        await interaction.send(allContainers)
                 
 def setup(client):
     client.add_cog(Docker(client))
