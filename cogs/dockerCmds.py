@@ -18,8 +18,9 @@ class Docker(commands.Cog):
         # Grab the default client
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
         ctnrNames = client.containers.list()
+        allContainers = ""
         for n in ctnrNames:
-            allContainers = allContainers + n
+            allContainers = allContainers + n + '\n'
             
         await interaction.send(allContainers)
                 
