@@ -20,7 +20,7 @@ class Docker(commands.Cog):
         ctnrNames = client.containers.list()
         allContainers = ""
         for n in ctnrNames:
-            allContainers = allContainers + n + '\n'
+            allContainers = allContainers + n.name + '\n'
             
         await interaction.send(allContainers)
                 
