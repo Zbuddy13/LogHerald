@@ -22,9 +22,6 @@ jobs:
               uses: docker/build-push-action@v2
               with:
                 context: .
+                push: true
                 tags: ${{ secrets.DOCKERUSER }}/logherald:latest
-
-            - name: Push image to github
-              run:
-                docker push ghcr.io/zbuddy13/logherald:latest
                 
