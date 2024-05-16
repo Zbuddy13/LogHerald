@@ -29,7 +29,14 @@ class Docker(commands.Cog):
     
     async def logs(self, interaction: Interaction, containername: str = ' '):
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-        container = client.containers.get(containername)
+        ctnrNames = client.containers.list()
+        placeinlist = 0
+        i = 0
+        for n in ctnrNames:
+            if(containername == n.name):
+                placeinlist = i
+            i += 1
+        container = client.containers.get(ctnrNames[placeinlist])
         await interaction.send(container.logs(timestramps=True))
                 
 def setup(client):
