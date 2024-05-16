@@ -5,6 +5,7 @@ FROM python:3.10.11-alpine3.17
 LABEL AUTHOR="ZBUDDY"
 LABEL org.opencontainers.image.source=https://github.com/Zbuddy13/LogHerald
 LABEL org.opencontainers.image.description="Containerized Version of logHerald"
+LABEL org.opencontainers.image.licenses=MIT
 
 # upgrade pip and install requirements.
 RUN pip3 install --upgrade pip
