@@ -29,7 +29,7 @@ class dockerMenu(commands.Cog):
     async def drop(self, interaction: Interaction):
         view = MenuView()
         await interaction.send("chose an option", view=view)
-        await interaction.response.send_message(f'you chose {self.label[0]}')
+        await interaction.send('you chose')
 
 
 def setup(client):
