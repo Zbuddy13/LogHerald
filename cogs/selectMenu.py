@@ -30,7 +30,8 @@ class dockerMenu(commands.Cog):
                             description="Dropdown test")
     async def drop(self, interaction: Interaction):
         view = MenuView()
-        await interaction.send("chose an option", view=view)
+        callback = Menus()
+        await interaction.send("chose an option", view=view, callable=callback)
 
 def setup(client):
     client.add_cog(dockerMenu(client))
