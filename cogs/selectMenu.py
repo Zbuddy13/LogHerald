@@ -22,6 +22,10 @@ class MenuView(nextcord.ui.View):
         self.add_item(Menus())
 
 class dockerMenu(commands.Cog):
+    def __init__(self, client):
+        print("DockerMenu Initialized Successfully")
+        self.client = client
+
     @nextcord.slash_command(name="drop",
                             description="Dropdown test")
     async def drop(self, interaction: Interaction):
