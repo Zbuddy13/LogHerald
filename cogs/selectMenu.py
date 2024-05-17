@@ -13,8 +13,6 @@ class Menus(nextcord.ui.Select):
         ]
         super().__init__(placeholder="Select your language", min_values=1, max_values=1,options=options)
     
-    async def callback(self, interaction: nextcord.Interaction):
-        await interaction.response.send_message(f'you chose {self.label[0]}')
 
 class MenuView(nextcord.ui.View):
     def __init__(self):
@@ -30,8 +28,9 @@ class dockerMenu(commands.Cog):
                             description="Dropdown test")
     async def drop(self, interaction: Interaction):
         view = MenuView()
-        callback = Menus()
-        await interaction.send("chose an option", view=view, callable=callback)
+        await interaction.send("chose an option", view=view)
+        await interaction.response.send_message(f'you chose {self.label[0]}')
+
 
 def setup(client):
     client.add_cog(dockerMenu(client))
