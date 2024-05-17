@@ -2,7 +2,6 @@ import docker
 import nextcord
 from nextcord.ext import commands
 from nextcord import Interaction
-from nextcord.ext import menus
 
 # Docker cog used to interact with a docker container
 class Docker(commands.Cog):
