@@ -2,6 +2,7 @@ import docker
 import nextcord
 from nextcord.ext import commands
 from nextcord import Interaction
+from nextcord.ext import menus
 
 # Docker cog used to interact with a docker container
 class Docker(commands.Cog):
@@ -17,7 +18,7 @@ class Docker(commands.Cog):
     async def names(self, interaction: Interaction):
         # Grab the default client
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-        ctnrNames = client.containers.list()
+        ctnrNames = client.containers.list(all=True)
         allContainers = ""
         for n in ctnrNames:
             allContainers = allContainers + n.name + '\n'
@@ -30,7 +31,7 @@ class Docker(commands.Cog):
     async def logs(self, interaction: Interaction, containername: str = ' '):
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
         #could add since, and until
-        ctnrNames = client.containers.list()
+        ctnrNames = client.containers.list(all=True)
         selectedContainer = client.containers.get(containername)
         await interaction.send(selectedContainer.logs(timestamps=True))
 
@@ -39,8 +40,9 @@ class Docker(commands.Cog):
     
     async def status(self, interaction: Interaction, containername: str = ' '):
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-        ctnrNames = client.containers.list()
+        ctnrNames = client.containers.list(all=True)
         selectedContainer = client.containers.get(containername)
+        #implement reaction menus
         await interaction.send(selectedContainer.status)
                 
 def setup(client):

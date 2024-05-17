@@ -1,4 +1,5 @@
 import os
+import docker
 import nextcord
 from nextcord.ext import commands
 
@@ -11,6 +12,16 @@ client = commands.Bot(command_prefix='l!', intents=intents, help_command=None, c
 
 newtoken = os.environ.get('token', "TOKEN")
 Token = newtoken
+
+@client.event
+async def on_ready():
+    # Check status of docker container and return logs if issue
+    client = docker.DockerClient(base_url='unix://var/run/docker.sock')
+    ctnrNames = client.containers.list(all=True)
+    for n in ctnrNames:
+        if(client.containers.get(n.name).status != "running"):
+            print(n.name + "Down\n")
+
 
 extensions = []
 
