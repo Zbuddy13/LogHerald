@@ -37,7 +37,7 @@ class Docker(commands.Cog):
     @nextcord.slash_command(name="status",
                             description="View the status of a selected container")
     
-    async def logs(self, interaction: Interaction, containername: str = ' '):
+    async def status(self, interaction: Interaction, containername: str = ' '):
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
         ctnrNames = client.containers.list()
         selectedContainer = client.containers.get(containername)
