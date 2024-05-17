@@ -1,4 +1,4 @@
-from discord import Interaction
+from nextcord import Interaction
 import nextcord
 from nextcord.ext import commands
 
@@ -12,7 +12,9 @@ class Menus(nextcord.ui.Select):
             nextcord.SelectOption(label="Java", description="java is old")
         ]
         super().__init__(placeholder="Select your language", min_values=1, max_values=1,options=options)
-    
+        async def callbackresponse(self, interaction:Interaction):
+            await interaction.response.send_message(f'you chose {self.values[0]}')
+        callback = callbackresponse
 
 class MenuView(nextcord.ui.View):
     def __init__(self):
@@ -29,7 +31,6 @@ class dockerMenu(commands.Cog):
     async def drop(self, interaction: Interaction):
         view = MenuView()
         await interaction.send("chose an option", view=view)
-        await interaction.send('you chose')
 
 
 def setup(client):
