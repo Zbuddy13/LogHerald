@@ -29,15 +29,19 @@ class Docker(commands.Cog):
     
     async def logs(self, interaction: Interaction, containername: str = ' '):
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
+        #could add since, and until
         ctnrNames = client.containers.list()
-        placeinlist = 0
-        i = 0
-        for n in ctnrNames:
-            if(containername == n.name):
-                placeinlist = i
-            i += 1
-        container = client.containers.get(ctnrNames[placeinlist])
-        await interaction.send(container.logs(timestramps=True))
+        selectedContainer = client.containers.get(containername)
+        await interaction.send(selectedContainer.logs(timestamps=True))
+
+    @nextcord.slash_command(name="status",
+                            description="View the status of a selected container")
+    
+    async def logs(self, interaction: Interaction, containername: str = ' '):
+        client = docker.DockerClient(base_url='unix://var/run/docker.sock')
+        ctnrNames = client.containers.list()
+        selectedContainer = client.containers.get(containername)
+        await interaction.send(selectedContainer.status)
                 
 def setup(client):
     client.add_cog(Docker(client))
