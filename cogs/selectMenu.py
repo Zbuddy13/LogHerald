@@ -25,7 +25,7 @@ class dockerMenu(commands.Cog):
             nextcord.SelectOption(label="Java", description="java is old")
         ]
 
-        dropdown = nextcord.Select(placeholder="What docker container would you like to select?", 
+        dropdown = Select(placeholder="What docker container would you like to select?", 
                                     options=options,  max_values=1, min_values=1)
             
         dropdown.callback = callbackresponse
