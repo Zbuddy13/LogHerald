@@ -12,6 +12,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install nextcord
 RUN pip3 install docker
 RUN pip3 install config
+RUN pip3 install apscheduler
 RUN apk update
 RUN apk upgrade --available && sync
 

@@ -3,6 +3,12 @@ import docker
 import nextcord
 from nextcord.ext import commands
 
+from datetime import date
+import time
+import asyncio
+import apscheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
+
 intents = nextcord.Intents.default()
 intents.members = True
 intents.message_content = True
@@ -16,11 +22,19 @@ Token = newtoken
 @client.event
 async def on_ready():
     # Check status of docker container and return logs if issue
-    client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-    ctnrNames = client.containers.list(all=True)
-    for n in ctnrNames:
-        if(client.containers.get(n.name).status != "running"):
-            print(n.name + "Down\n")
+
+    async def checkDownContainers():
+        channel = commands.Bot.get_channel(int(1241163646013542582))
+        client = docker.DockerClient(base_url='unix://var/run/docker.sock')
+        ctnrNames = client.containers.list(all=True)
+        for n in ctnrNames:
+            if(client.containers.get(n.name).status != "running"):
+                channel.send(n.name + " Down\n")
+
+    
+    scheduler = BlockingScheduler()
+    scheduler.add_job(checkDownContainers, 'interval', min=int(5))
+    scheduler.start()
 
 
 extensions = []
