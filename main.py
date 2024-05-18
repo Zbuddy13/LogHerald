@@ -24,7 +24,7 @@ async def on_ready():
     # Check status of docker container and return logs if issue
 
     
-    channel = commands.Bot.get_channel(id=1241163646013542582)
+    channel = commands.Bot.get_channel(1241163646013542582)
     client = docker.DockerClient(base_url='unix://var/run/docker.sock')
     ctnrNames = client.containers.list(all=True)
     for n in ctnrNames:
