@@ -33,7 +33,7 @@ async def on_ready():
 
     
     scheduler = BlockingScheduler()
-    scheduler.add_job(checkDownContainers, 'interval', min=int(5))
+    scheduler.add_job(checkDownContainers, 'interval', hours=int(1))
     scheduler.start()
 
 
