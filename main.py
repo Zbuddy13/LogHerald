@@ -22,14 +22,12 @@ Token = newtoken
 @client.event
 async def on_ready():
     # Check status of docker container and return logs if issue
-
-    
-    channel = commands.Bot.get_channel(1241163646013542582)
+    channel = client.get_channel(1241163646013542582)
     client = docker.DockerClient(base_url='unix://var/run/docker.sock')
     ctnrNames = client.containers.list(all=True)
     for n in ctnrNames:
         if(client.containers.get(n.name).status != "running"):
-            channel.send(n.name + " Down\n")
+            await channel.send(n.name + " Down\n")
 
     
     #scheduler = BlockingScheduler()

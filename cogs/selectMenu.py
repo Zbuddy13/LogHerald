@@ -29,7 +29,7 @@ class dockerMenu(commands.Cog):
         for n in ctnrNames:
             options.append(nextcord.SelectOption(label=n.name))
         
-        dropdown = Select(placeholder="What docker container would you like to select?", 
+        dropdown = Select(placeholder="Containers", 
                                     options=options,  max_values=1, min_values=1)
             
         dropdown.callback = callbackresponse
