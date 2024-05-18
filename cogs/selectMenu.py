@@ -30,9 +30,9 @@ class dockerMenu(commands.Cog):
 
     @nextcord.slash_command(name="drop",
                             description="Dropdown test")
-    async def drop(self, ctx=commands.context):
+    async def drop(self, interaction:Interaction):
         view = MenuView()
-        await ctx.send("chose an option", view=view)
+        await interaction.response.send("chose an option", view=view)
 
 
 def setup(client):
