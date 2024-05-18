@@ -23,16 +23,6 @@ async def send_message(message):
   channel = client.get_channel(1241163646013542582)
   await channel.send(message)
 
-@client.event
-async def on_ready():
-    print("Ready")
-    # Check status of docker container and return logs if issue
-    
-    #scheduler = BlockingScheduler()
-    #scheduler.add_job(checkDownContainers, 'interval', hours=int(1))
-    #scheduler.start()
-
-@client.event
 async def send_without_command():
     global send_message
     if True:
@@ -41,6 +31,18 @@ async def send_without_command():
         for n in ctnrNames:
             if(client.containers.get(n.name).status != "running"):
                 await send_message(n.name + " Down\n")
+
+
+@client.event
+async def on_ready():
+    print("Ready")
+    await send_without_command()
+    print("Sent Message")
+    # Check status of docker container and return logs if issue
+    
+    #scheduler = BlockingScheduler()
+    #scheduler.add_job(checkDownContainers, 'interval', hours=int(1))
+    #scheduler.start()
 
 extensions = []
 
