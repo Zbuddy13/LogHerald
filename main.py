@@ -23,15 +23,15 @@ Token = newtoken
 async def on_ready():
     # Check status of docker container and return logs if issue
 
-    async def checkDownContainers():
-        channel = commands.Bot.get_channel(int(1241163646013542582))
-        client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-        ctnrNames = client.containers.list(all=True)
-        for n in ctnrNames:
-            if(client.containers.get(n.name).status != "running"):
-                channel.send(n.name + " Down\n")
+    
+    channel = commands.Bot.get_channel(int(1241163646013542582))
+    client = docker.DockerClient(base_url='unix://var/run/docker.sock')
+    ctnrNames = client.containers.list(all=True)
+    for n in ctnrNames:
+        if(client.containers.get(n.name).status != "running"):
+            channel.send(n.name + " Down\n")
 
-    checkDownContainers()
+    
     #scheduler = BlockingScheduler()
     #scheduler.add_job(checkDownContainers, 'interval', hours=int(1))
     #scheduler.start()
