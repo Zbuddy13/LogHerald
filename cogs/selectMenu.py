@@ -1,5 +1,6 @@
 from nextcord import Interaction
 import nextcord
+import docker
 from nextcord.ext import commands
 from nextcord.ui import View
 from nextcord.ui import Select
@@ -19,19 +20,22 @@ class dockerMenu(commands.Cog):
         async def callbackresponse(interaction):
             for values in dropdown.values:
                 await interaction.send("You chose option: " + values)
-            
-        options = [
-            nextcord.SelectOption(label="Python", description="python is cool"),
-            nextcord.SelectOption(label="Java", description="java is old")
-        ]
 
+        # Create loop to loop through all the server names
+            
+        options = []
+        client = docker.DockerClient(base_url='unix://var/run/docker.sock')
+        ctnrNames = client.containers.list(all=True)
+        for n in ctnrNames:
+            options.append(nextcord.SelectOption(label=n.name))
+        
         dropdown = Select(placeholder="What docker container would you like to select?", 
                                     options=options,  max_values=1, min_values=1)
             
         dropdown.callback = callbackresponse
         myview = View(timeout=180)
         myview.add_item(dropdown)
-        await interaction.send('Hello!', view=myview)
+        await interaction.send('What docker container would you like to select?', view=myview)
             
 
 # class MenuView(nextcord.ui.View):
