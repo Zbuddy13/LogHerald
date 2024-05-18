@@ -31,10 +31,10 @@ async def on_ready():
             if(client.containers.get(n.name).status != "running"):
                 channel.send(n.name + " Down\n")
 
-    
-    scheduler = BlockingScheduler()
-    scheduler.add_job(checkDownContainers, 'interval', hours=int(1))
-    scheduler.start()
+    checkDownContainers()
+    #scheduler = BlockingScheduler()
+    #scheduler.add_job(checkDownContainers, 'interval', hours=int(1))
+    #scheduler.start()
 
 
 extensions = []
