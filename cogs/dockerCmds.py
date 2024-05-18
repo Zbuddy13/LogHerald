@@ -43,6 +43,8 @@ class Docker(commands.Cog):
         selectedContainer = client.containers.get(containername)
         #implement reaction menus
         await interaction.send(selectedContainer.status)
+
+    
                 
 def setup(client):
     client.add_cog(Docker(client))
