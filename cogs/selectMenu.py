@@ -16,9 +16,9 @@ class dockerMenu(commands.Cog):
         
     async def drop(self, interaction:Interaction):
 
-        async def callbackresponse(interaction:Interaction):
-            selected_option = interaction.data.values[0]
-            await interaction.response.send_message(f"You chose option: {selected_option}!")
+        async def callbackresponse(interaction):
+            for values in dropdown.values:
+                await interaction.send("You chose option: " + values)
             
         options = [
             nextcord.SelectOption(label="Python", description="python is cool"),
