@@ -11,27 +11,27 @@ class dockerMenu(commands.Cog):
         print("DockerMenu Initialized Successfully")
         self.client = client
 
-        @nextcord.slash_command(name="drop",
-                            description="Dropdown test")
+    @nextcord.slash_command(name="drop",
+                        description="Dropdown test")
         
-        async def drop(self, interaction:Interaction):
+    async def drop(self, interaction:Interaction):
 
-            async def callbackresponse(interaction:Interaction):
-                selected_option = interaction.data.values[0]
-                await interaction.response.send_message(f"You chose option: {selected_option}!")
+        async def callbackresponse(interaction:Interaction):
+            selected_option = interaction.data.values[0]
+            await interaction.response.send_message(f"You chose option: {selected_option}!")
             
-            options = [
-                nextcord.SelectOption(label="Python", description="python is cool"),
-                nextcord.SelectOption(label="Java", description="java is old")
-            ]
+        options = [
+            nextcord.SelectOption(label="Python", description="python is cool"),
+            nextcord.SelectOption(label="Java", description="java is old")
+        ]
 
-            dropdown = nextcord.Select(placeholder="What docker container would you like to select?", 
-                                       options=options,  max_values=1, min_values=1)
+        dropdown = nextcord.Select(placeholder="What docker container would you like to select?", 
+                                    options=options,  max_values=1, min_values=1)
             
-            dropdown.callback = callbackresponse
-            myview = View(timeout=180)
-            myview.add_item(dropdown)
-            await interaction.send('Hello!', view=myview)
+        dropdown.callback = callbackresponse
+        myview = View(timeout=180)
+        myview.add_item(dropdown)
+        await interaction.send('Hello!', view=myview)
             
 
 # class MenuView(nextcord.ui.View):
