@@ -1,9 +1,10 @@
 from nextcord import Interaction
 import nextcord
 from nextcord.ext import commands
-from nextcord.ui import View, Select
+from nextcord.ui import View
+from nextcord.ui import Select
 
-class dockerMenu(Select):
+class dockerMenu(commands.Cog):
     
     # default initialization
     def __init__(self, client):
