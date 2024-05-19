@@ -22,9 +22,11 @@ class dockerMenu(commands.Cog):
             print("Callback Initiated")
             client = docker.DockerClient(base_url='unix://var/run/docker.sock')
             ctnrNames = client.containers.list(all=True)
+            embed = nextcord.Embed(title="Log Results")
+            embed.add_field(name="", value=str(client.containers.get(values).logs(timestamps=True, tail=5)))
             for values in dropdown.values:
                 #add option for logs
-                await interaction.send(client.containers.get(values).logs(timestamps=True, tail=5))
+                await interaction.send(embed=embed)
 
         # Add all the docker containers to a array then print them out    
         options = []
