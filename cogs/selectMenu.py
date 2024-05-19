@@ -9,20 +9,24 @@ class dockerMenu(commands.Cog):
     
     # default initialization
     def __init__(self, client):
-        print("DockerMenu Initialized Successfully")
+        print("DockerLogDropdown Initialized Successfully")
         self.client = client
 
-    @nextcord.slash_command(name="drop",
+    @nextcord.slash_command(name="dkrlogs",
                         description="Dropdown test")
         
-    async def drop(self, interaction:Interaction):
+    async def dkrlogs(self, interaction:Interaction):
 
+        # Called after user selects an option from the drop down
         async def callbackresponse(interaction):
+            print("Callback Initiated")
+            client = docker.DockerClient(base_url='unix://var/run/docker.sock')
+            ctnrNames = client.containers.list(all=True)
             for values in dropdown.values:
-                await interaction.send("You chose option: " + values)
+                #add option for logs
+                await interaction.send(client.containers.get(values).logs(timestamps=True, tail=5))
 
-        # Create loop to loop through all the server names
-            
+        # Add all the docker containers to a array then print them out    
         options = []
         client = docker.DockerClient(base_url='unix://var/run/docker.sock')
         ctnrNames = client.containers.list(all=True)

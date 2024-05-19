@@ -19,10 +19,12 @@ client = commands.Bot(command_prefix='l!', intents=intents, help_command=None, c
 newtoken = os.environ.get('token', "TOKEN")
 Token = newtoken
 
+# Used to send a message to a specific channel
 async def send_message(message):
   channel = client.get_channel(1241163646013542582)
   await channel.send(message)
 
+# Used to send a message without input of user
 async def send_without_command():
     global send_message
     if True:
