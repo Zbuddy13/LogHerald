@@ -15,7 +15,7 @@ class dockerMenu(commands.Cog):
     @nextcord.slash_command(name="dkrlogs",
                         description="Dropdown test")
         
-    async def dkrlogs(self, interaction:Interaction):
+    async def dkrlogs(self, interaction:Interaction, lines: int = 0):
 
         # Called after user selects an option from the drop down
         async def callbackresponse(interaction):
@@ -23,9 +23,12 @@ class dockerMenu(commands.Cog):
             client = docker.DockerClient(base_url='unix://var/run/docker.sock')
             ctnrNames = client.containers.list(all=True)
             embed = nextcord.Embed(title="Log Results")
+            # add streaming option for logs
             for values in dropdown.values:
                 #add option for logs
-                embed.add_field(name="", value=str(client.containers.get(values).logs(timestamps=True, tail=5)))
+                for line in client.containers.get(values).logs(stream=True, timestamps=True, tail=lines):
+                    embed.add_field(name="", value=str(line))
+                
                 await interaction.send(embed=embed)
 
         # Add all the docker containers to a array then print them out    
