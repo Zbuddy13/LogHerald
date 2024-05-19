@@ -26,10 +26,9 @@ class dockerMenu(commands.Cog):
             # add streaming option for logs
             for values in dropdown.values:
                 #add option for logs
-                for line in client.containers.get(values).logs(timestamps=True, tail=lines):
-                    embed.add_field(name="", value=line)
+                embed.add_field(name="", value=client.containers.get(values).logs(timestamps=True, tail=lines))
                 
-                await interaction.send(embed=embed)
+            await interaction.send(embed=embed)
 
         # Add all the docker containers to a array then print them out    
         options = []
