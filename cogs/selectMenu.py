@@ -28,9 +28,7 @@ class dockerMenu(commands.Cog):
                 # Remove the logstr begining and ending format
                 # might need loop to remove newline
                 logstr = client.containers.get(values).logs(timestamps=True, tail=lines)
-                logstr = logstr[2:-1]
-                print(logstr)
-                embed.add_field(name="", value=logstr)
+                embed.add_field(name="", value=logstr[2:-1])
                 
             await interaction.send(embed=embed)
 
