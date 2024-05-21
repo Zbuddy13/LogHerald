@@ -3,12 +3,6 @@ import docker
 import nextcord
 from nextcord.ext import commands
 
-from datetime import date
-import time
-import asyncio
-import apscheduler
-from apscheduler.schedulers.blocking import BlockingScheduler
-
 intents = nextcord.Intents.default()
 intents.members = True
 intents.message_content = True
@@ -39,7 +33,7 @@ async def send_without_command():
 @client.event
 async def on_ready():
     print("Ready")
-    await send_without_command()
+    #await send_without_command()
     print("Sent Message")
     # Check status of docker container and return logs if issue
     
