@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.licenses=MIT
 
 # upgrade pip and install requirements.
 COPY /requirements.txt /requirements.txt
-RUN pip3 install --upgrade pip
+RUN pip3 install --upgrade pip3
 RUN pip3 install -r /requirements.txt
 RUN apk update
 RUN apk upgrade --available && sync

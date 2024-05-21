@@ -33,7 +33,7 @@ async def send_without_command():
 @client.event
 async def on_ready():
     print("Ready")
-    #await send_without_command()
+    await send_without_command()
     print("Sent Message")
     # Check status of docker container and return logs if issue
     

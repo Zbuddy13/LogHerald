@@ -23,5 +23,5 @@ jobs:
               with:
                 context: .
                 push: true
-                tags: ${{ secrets.DOCKERUSER }}/logherald:latest
+                tags: ${{ secrets.DOCKERUSER }}/logherald:1.0
                 
