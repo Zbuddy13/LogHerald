@@ -1,4 +1,4 @@
-FROM python:3.12.3-alpine
+FROM python:3.11.2-alpine
 #FROM --platform=linux/arm python:3.10.11-alpine3.17 as build
 
 # Adding Labels to identify repository for github
@@ -8,11 +8,9 @@ LABEL org.opencontainers.image.description="Containerized Version of logHerald"
 LABEL org.opencontainers.image.licenses=MIT
 
 # upgrade pip and install requirements.
+COPY /requirements.txt /requirements.txt
 RUN pip3 install --upgrade pip
-RUN pip3 install nextcord
-RUN pip3 install docker
-RUN pip3 install config
-RUN pip3 install apscheduler
+RUN pip3 install -r /requirements.txt
 RUN apk update
 RUN apk upgrade --available && sync
 
