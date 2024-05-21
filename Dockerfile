@@ -1,4 +1,4 @@
-FROM python:3.10.11-alpine3.17
+FROM python:3.12.3-alpine
 #FROM --platform=linux/arm python:3.10.11-alpine3.17 as build
 
 # Adding Labels to identify repository for github
