@@ -27,10 +27,8 @@ class dockerMenu(commands.Cog):
             for values in dropdown.values:
                 # Remove the logstr begining and ending format
                 # might need loop to remove newline
-                logstr = str(client.containers.get(values).logs(timestamps=True, tail=lines))
-                logstr = logstr.lstrip("b'")
-                logstr = logstr.rstrip("'")
-                embed.add_field(name="", value=logstr)
+                logstr = client.containers.get(values).logs(timestamps=True, tail=lines)
+                embed.add_field(name="", value=logstr.decode())
                 
             await interaction.send(embed=embed)
 
