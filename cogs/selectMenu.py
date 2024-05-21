@@ -20,7 +20,7 @@ class dockerMenu(commands.Cog):
         # Called after user selects an option from the drop down
         async def callbackresponse(interaction):
             print("Callback Initiated")
-            client = docker.DockerClient(base_url='unix://var/run/docker.sock')
+            client = docker.DockerClient(base_url='unix://var/run/docker.sock', version='auto')
             ctnrNames = client.containers.list(all=True)
             embed = nextcord.Embed(title="Log Results")
             # add streaming option for logs
@@ -34,7 +34,7 @@ class dockerMenu(commands.Cog):
 
         # Add all the docker containers to a array then print them out    
         options = []
-        client = docker.DockerClient(base_url='unix://var/run/docker.sock')
+        client = docker.DockerClient(base_url='unix://var/run/docker.sock', version='auto')
         ctnrNames = client.containers.list(all=True)
         for n in ctnrNames:
             options.append(nextcord.SelectOption(label=n.name))
