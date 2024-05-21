@@ -28,6 +28,7 @@ async def send_message(message):
 async def send_without_command():
     global send_message
     if True:
+        # added auto version
         client = docker.DockerClient(base_url='unix://var/run/docker.sock', version='auto')
         ctnrNames = client.containers.list(all=True)
         for n in ctnrNames:
