@@ -51,7 +51,7 @@ async def loop_task():
     check_return_status()
     print("Container status checked")
 
-@client.event
+@client.events
 async def on_ready():
     await create_dictionary()
     print("Ready")
