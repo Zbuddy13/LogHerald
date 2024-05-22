@@ -45,7 +45,10 @@ async def check_return_status():
     # Iterate through the names in the old dictionary
     for container in statusDictionary:
         # Pull the status of the container
+        print("New status" + client.containers.get(container).status)
+        print("Old status" + statusDictionary[container])
         if(client.containers.get(container).status != statusDictionary[container]):
+            print("Container changed")
             # Set equal to the new status
             statusDictionary[container] = client.containers.get(container).status
             # Send message that the status has changed
