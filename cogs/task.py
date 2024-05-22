@@ -52,3 +52,6 @@ class task(commands.Cog):
         global check_return_status
         check_return_status()
         print("Container status checked")
+
+def setup(client):
+    client.add_cog(task(client))
