@@ -19,7 +19,7 @@ class task(commands.Cog):
         await check_return_status(msgchannel)
         print("Container status checked")
 
-messageChannel = os.environ.get('channel', "CHANNEL")
+messageChannel = int(os.environ.get('channel', "CHANNEL"))
 
 # Hold the informaiton of the 
 statusDictionary = dict()
