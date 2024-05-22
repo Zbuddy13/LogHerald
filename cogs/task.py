@@ -52,7 +52,7 @@ class task(commands.Cog):
     async def loop_task(self):
         global check_return_status
         await self.client.wait_until_ready()
-        check_return_status()
+        await check_return_status()
         print("Container status checked")
 
 def setup(client):
