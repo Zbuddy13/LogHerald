@@ -1,5 +1,6 @@
 import os
 import docker
+import nextcord
 from nextcord.ext import tasks, commands
 
 class task(commands.Cog):
@@ -14,7 +15,8 @@ class task(commands.Cog):
     @tasks.loop(minutes=1.0)
     async def loop_task(self):
         await self.client.wait_until_ready()
-        await check_return_status()
+        msgchannel = self.bot.get_channel(messageChannel)
+        await check_return_status(msgchannel)
         print("Container status checked")
 
 messageChannel = os.environ.get('channel', "CHANNEL")
@@ -27,7 +29,6 @@ client = docker.DockerClient(base_url='unix://var/run/docker.sock')
 
 # Used to send a message to a specific channel
 async def send_message(message, channel):
-    channel = client.get_channel(channel)
     await channel.send(message)
 
 # Creates the container names are returns that list
@@ -40,7 +41,7 @@ def create_dictionary(dictionary):
         dictionary[n.name] = client.containers.get(n.name).status
 
 # Used to send a message without input of user
-async def check_return_status():
+async def check_return_status(channel):
     ctnrStatus = container_names()
     # Iterate through the names in the old dictionary
     for container in statusDictionary:
@@ -52,7 +53,7 @@ async def check_return_status():
             # Set equal to the new status
             statusDictionary[container] = client.containers.get(container).status
             # Send message that the status has changed
-            await send_message(container + " Changed\n", messageChannel)
+            await send_message(container + " Changed\n", channel)
 
 def setup(client):
     client.add_cog(task(client))
