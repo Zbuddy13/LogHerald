@@ -8,6 +8,7 @@ class task(commands.Cog):
     def __init__(self, client):
         print("Task Initialized Successfully")
         self.client = client
+        self.loop_task.start()
 
     Channel = os.environ.get('channel', "CHANNEL")
 
@@ -48,8 +49,9 @@ class task(commands.Cog):
                 await send_message(container + " Changed\n")
 
     @tasks.loop(minutes=1.0)
-    async def loop_task():
+    async def loop_task(self):
         global check_return_status
+        await self.client.wait_until_ready()
         check_return_status()
         print("Container status checked")
 
