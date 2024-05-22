@@ -15,7 +15,7 @@ class task(commands.Cog):
     @tasks.loop(minutes=1.0)
     async def loop_task(self):
         await self.client.wait_until_ready()
-        msgchannel = self.bot.get_channel(messageChannel)
+        msgchannel = self.client.get_channel(messageChannel)
         await check_return_status(msgchannel)
         print("Container status checked")
 
@@ -25,11 +25,7 @@ messageChannel = os.environ.get('channel', "CHANNEL")
 statusDictionary = dict()
 
 # Client for docker
-client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-
-# Used to send a message to a specific channel
-async def send_message(message, channel):
-    await channel.send(message)
+dkrclient = docker.DockerClient(base_url='unix://var/run/docker.sock')
 
 # Creates the container names are returns that list
 def container_names():
@@ -38,22 +34,21 @@ def container_names():
 # Create dictionary and fill with container names
 def create_dictionary(dictionary):
     for n in container_names():
-        dictionary[n.name] = client.containers.get(n.name).status
+        dictionary[n.name] = dkrclient.containers.get(n.name).status
 
 # Used to send a message without input of user
 async def check_return_status(channel):
-    ctnrStatus = container_names()
     # Iterate through the names in the old dictionary
     for container in statusDictionary:
         # Pull the status of the container
-        print("New status" + client.containers.get(container).status)
+        print("New status" + dkrclient.containers.get(container).status)
         print("Old status" + statusDictionary[container])
-        if(client.containers.get(container).status != statusDictionary[container]):
+        if(dkrclient.containers.get(container).status != statusDictionary[container]):
             print("Container changed")
             # Set equal to the new status
-            statusDictionary[container] = client.containers.get(container).status
+            statusDictionary[container] = dkrclient.containers.get(container).status
             # Send message that the status has changed
-            await send_message(container + " Changed\n", channel)
+            await channel.send(container + " Changed\n")
 
 def setup(client):
     client.add_cog(task(client))
