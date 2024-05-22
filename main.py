@@ -16,7 +16,6 @@ Token = os.environ.get('token', "TOKEN")
 async def on_ready():
     print("Ready")
 
-
 extensions = []
 
 for filename in os.listdir('./cogs'):
