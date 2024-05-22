@@ -2,7 +2,7 @@ name: Docker Build
 on:
     push:
       branches:
-        main
+        testing
 
 jobs:
     build:
@@ -17,11 +17,11 @@ jobs:
               with:
                 username: ${{ secrets.DOCKERUSER }}
                 password: ${{ secrets.DOCKERPASS }}
-
+            
             - name: Build Docker Image
               uses: docker/build-push-action@v2
               with:
                 context: .
                 push: true
-                tags: ${{ secrets.DOCKERUSER }}/logherald:1.0
+                tags: ${{ secrets.DOCKERUSER }}/logherald:nightly
                 
