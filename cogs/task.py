@@ -17,7 +17,7 @@ class task(commands.Cog):
         await check_return_status()
         print("Container status checked")
 
-Channel = os.environ.get('channel', "CHANNEL")
+messageChannel = os.environ.get('channel', "CHANNEL")
 
 # Hold the informaiton of the 
 statusDictionary = dict()
@@ -26,7 +26,7 @@ statusDictionary = dict()
 client = docker.DockerClient(base_url='unix://var/run/docker.sock')
 
 # Used to send a message to a specific channel
-async def send_message(message):
+async def send_message(message, channel):
     channel = client.get_channel(channel)
     await channel.send(message)
 
@@ -52,7 +52,7 @@ async def check_return_status():
             # Set equal to the new status
             statusDictionary[container] = client.containers.get(container).status
             # Send message that the status has changed
-            await send_message(container + " Changed\n")
+            await send_message(container + " Changed\n", messageChannel)
 
 def setup(client):
     client.add_cog(task(client))
