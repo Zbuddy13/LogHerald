@@ -29,7 +29,7 @@ dkrclient = docker.DockerClient(base_url='unix://var/run/docker.sock')
 
 # Creates the container names are returns that list
 def container_names():
-    return client.containers.list(all=True)
+    return dkrclient.containers.list(all=True)
 
 # Create dictionary and fill with container names
 def create_dictionary(dictionary):
