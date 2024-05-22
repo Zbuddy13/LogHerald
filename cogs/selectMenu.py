@@ -1,7 +1,7 @@
 from nextcord import Interaction
 import nextcord
 import docker
-from nextcord.ext import commands
+from nextcord.ext import commands, tasks
 from nextcord.ui import View
 from nextcord.ui import Select
 
@@ -47,6 +47,10 @@ class dockerMenu(commands.Cog):
         myview.add_item(dropdown)
         await interaction.send('What docker container would you like to select?', view=myview)
             
+@tasks.loop(minutes=5.0)
+async def loop_task():
+    check_return_status()
+    print("Container status checked")
 
 # class MenuView(nextcord.ui.View):
 #     def __init__(self):
